@@ -55,13 +55,13 @@ public class KeyListener implements NativeKeyListener {
             logger.setLevel(Level.ALL);
 
             GlobalScreen.registerNativeHook();
+
+            GlobalScreen.addNativeKeyListener(new KeyListener());
         } catch (NativeHookException ex) {
             System.err.println("There was a problem registering the native hook.");
             System.err.println(ex.getMessage());
 
             System.exit(1);
         }
-
-        GlobalScreen.addNativeKeyListener(new KeyListener());
     }
 }

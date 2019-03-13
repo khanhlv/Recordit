@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileReader;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 
 /**
  * http://omtlab.com/java-control-the-mouse-pointer-and-click/
@@ -26,12 +27,7 @@ public class PlayMouse {
             String[] splitKey = input.split("=");
 
             if (StringUtils.equals("MOUSE_MOVE", splitKey[0])) {
-                String[] split = StringUtils.split(splitKey[1], ",");
-
-                int x = Integer.parseInt(split[0]);
-                int y = Integer.parseInt(split[1]);
-                robot.mouseMove(x, y);
-
+                mouseMove(robot, splitKey);
             }
 
             if (StringUtils.equals("MOUSE_PRESSED", splitKey[0])) {
@@ -45,12 +41,7 @@ public class PlayMouse {
             }
 
             if (StringUtils.equals("MOUSE_DRAGGED", splitKey[0])) {
-                String[] split = StringUtils.split(splitKey[1], ",");
-
-                int x = Integer.parseInt(split[0]);
-                int y = Integer.parseInt(split[1]);
-                robot.mouseMove(x, y);
-
+                mouseMove(robot, splitKey);
             }
 
             if (StringUtils.equals("MOUSE_RELEASED", splitKey[0])) {
@@ -63,11 +54,23 @@ public class PlayMouse {
                 }
             }
 
-            Thread.sleep(50);
+            if (StringUtils.equals("MOUSE_WHEEL", splitKey[0])) {
+                robot.mouseWheel(NumberUtils.toInt(splitKey[1]));
+            }
+
+            Thread.sleep(20);
             System.out.println(input);
         }
 
-        System.exit(-1);
+        System.exit(1);
+    }
+
+    private static void mouseMove(Robot robot, String[] splitKey) {
+        String[] split = StringUtils.split(splitKey[1], ",");
+
+        int x = Integer.parseInt(split[0]);
+        int y = Integer.parseInt(split[1]);
+        robot.mouseMove(x, y);
     }
 
     public static void main(String[] args) throws Exception {

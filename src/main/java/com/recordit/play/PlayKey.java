@@ -20,53 +20,6 @@ public class PlayKey {
         BufferedReader in = new BufferedReader(new FileReader(file));
         Robot robot = new Robot();
 
-//        String input = null;
-//        while((input = in.readLine()) != null) {
-//            String[] splitKey = input.split("=");
-//
-//            if (StringUtils.equals("MOVE", splitKey[0])) {
-//                String[] split = StringUtils.split(splitKey[1], ",");
-//
-//                int x = Integer.parseInt(split[0]);
-//                int y = Integer.parseInt(split[1]);
-//                robot.mouseMove(x, y);
-//
-//            }
-//
-//            if (StringUtils.equals("PRESSED", splitKey[0])) {
-//                if (StringUtils.equals("1", splitKey[1])) {
-//                    robot.mousePress(InputEvent.BUTTON1_MASK);
-//                }
-//
-//                if (StringUtils.equals("2", splitKey[1])) {
-//                    robot.mousePress(InputEvent.BUTTON3_MASK);
-//                }
-//            }
-//
-//            if (StringUtils.equals("DRAGGED", splitKey[0])) {
-//                String[] split = StringUtils.split(splitKey[1], ",");
-//
-//                int x = Integer.parseInt(split[0]);
-//                int y = Integer.parseInt(split[1]);
-//                robot.mouseMove(x, y);
-//
-//            }
-//
-//            if (StringUtils.equals("RELEASED", splitKey[0])) {
-//                if (StringUtils.equals("1", splitKey[1])) {
-//                    robot.mouseRelease(InputEvent.BUTTON1_MASK);
-//                }
-//
-//                if (StringUtils.equals("2", splitKey[1])) {
-//                    robot.mouseRelease(InputEvent.BUTTON3_MASK);
-//                }
-//            }
-//
-//            Thread.sleep(50);
-//            System.out.println(input);
-//        }
-//        robot.keyPress(29);
-//        robot.keyRelease(47);
 
         System.out.println("Key Released: " + NativeKeyEvent.getKeyText(29));
         System.out.println("Key Released: " + NativeKeyEvent.getKeyText(47));

@@ -10,8 +10,10 @@ import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseInputListener;
+import org.jnativehook.mouse.NativeMouseWheelEvent;
+import org.jnativehook.mouse.NativeMouseWheelListener;
 
-public class MouseListener implements NativeMouseInputListener {
+public class MouseListener implements NativeMouseInputListener, NativeMouseWheelListener {
 
     private static final File file = new File("D:/mouse.txt");
 
@@ -20,11 +22,6 @@ public class MouseListener implements NativeMouseInputListener {
 
     public void nativeMouseClicked(NativeMouseEvent e) {
         System.out.println("Mouse Clicked: " + e.getClickCount());
-//        try {
-//            FileUtils.writeStringToFile(file, "CLICK=" + e.getClickCount() + "\n", "UTF-8", true);
-//        } catch (IOException e1) {
-//            e1.printStackTrace();
-//        }
     }
 
     public void nativeMousePressed(NativeMouseEvent e) {
@@ -63,13 +60,30 @@ public class MouseListener implements NativeMouseInputListener {
         System.out.println("Mouse Dragged: " + e.getX() + ", " + e.getY());
     }
 
+    public void nativeMouseWheelMoved(NativeMouseWheelEvent e) {
+        try {
+            FileUtils.writeStringToFile(file, "MOUSE_WHEEL=" + e.getWheelRotation() + "\n", "UTF-8", true);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        System.out.println("Mouse Wheel Moved: " + e.getWheelRotation());
+    }
+
     public static void main(String[] args) {
         try {
             FileUtils.deleteQuietly(file);
-            logger.setUseParentHandlers(false);
-            logger.setLevel(Level.ALL);
+            logger.setLevel(Level.OFF);
 
             GlobalScreen.registerNativeHook();
+
+            // Construct the example object.
+            MouseListener example = new MouseListener();
+
+            // Add the appropriate listeners.
+            GlobalScreen.addNativeMouseListener(example);
+            GlobalScreen.addNativeMouseMotionListener(example);
+            GlobalScreen.addNativeMouseWheelListener(example);
+
         }
         catch (NativeHookException ex) {
             System.err.println("There was a problem registering the native hook.");
@@ -77,12 +91,5 @@ public class MouseListener implements NativeMouseInputListener {
 
             System.exit(1);
         }
-
-        // Construct the example object.
-        MouseListener example = new MouseListener();
-
-        // Add the appropriate listeners.
-        GlobalScreen.addNativeMouseListener(example);
-        GlobalScreen.addNativeMouseMotionListener(example);
     }
 }
