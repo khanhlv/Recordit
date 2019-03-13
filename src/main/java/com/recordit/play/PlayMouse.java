@@ -38,6 +38,10 @@ public class PlayMouse {
                 if (StringUtils.equals("2", splitKey[1])) {
                     robot.mousePress(InputEvent.BUTTON3_MASK);
                 }
+
+                if (StringUtils.equals("3", splitKey[1])) {
+                    robot.mousePress(InputEvent.BUTTON2_MASK);
+                }
             }
 
             if (StringUtils.equals("MOUSE_DRAGGED", splitKey[0])) {
@@ -51,6 +55,10 @@ public class PlayMouse {
 
                 if (StringUtils.equals("2", splitKey[1])) {
                     robot.mouseRelease(InputEvent.BUTTON3_MASK);
+                }
+
+                if (StringUtils.equals("3", splitKey[1])) {
+                    robot.mouseRelease(InputEvent.BUTTON2_MASK);
                 }
             }
 
