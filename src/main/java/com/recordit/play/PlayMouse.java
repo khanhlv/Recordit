@@ -16,7 +16,7 @@ import org.apache.commons.lang3.math.NumberUtils;
  */
 public class PlayMouse {
 
-    private static final File file = new File("D:/mouse.txt");
+    private static final File file = new File("data/mouse.txt");
 
     public static void play() throws Exception {
         BufferedReader in = new BufferedReader(new FileReader(file));

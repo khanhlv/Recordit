@@ -15,7 +15,7 @@ import org.jnativehook.mouse.NativeMouseWheelListener;
 
 public class MouseListener implements NativeMouseInputListener, NativeMouseWheelListener {
 
-    private static final File file = new File("D:/mouse.txt");
+    private static final File file = new File("data/mouse.txt");
 
     /** Logging */
     private static final Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());

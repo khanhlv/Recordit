@@ -14,7 +14,7 @@ import org.jnativehook.keyboard.NativeKeyListener;
 public class KeyListener implements NativeKeyListener {
     private static final Logger logger = Logger.getLogger(GlobalScreen.class.getPackage().getName());
 
-    private static final File file = new File("D:/key.txt");
+    private static final File file = new File("data/key.txt");
 
     public void nativeKeyPressed(NativeKeyEvent e) {
         System.out.println("Key Pressed: " + NativeKeyEvent.getKeyText(e.getKeyCode()) + "-" + e.getKeyCode());
@@ -27,6 +27,7 @@ public class KeyListener implements NativeKeyListener {
         if (e.getKeyCode() == NativeKeyEvent.VC_ESCAPE) {
             try {
                 GlobalScreen.unregisterNativeHook();
+                System.exit(1);
             } catch (NativeHookException e1) {
                 e1.printStackTrace();
             }

@@ -17,11 +17,13 @@ import org.jnativehook.keyboard.NativeKeyEvent;
  */
 public class PlayKey {
 
-    private static final File file = new File("D:/key.txt");
+    private static final File file = new File("data/key.txt");
     private static final HashMap<String, Integer> hasKey = new HashMap<>();
     static {
         for (int i = 0 ; i < 16*16*16*16; i++) {
-            hasKey.put(KeyEvent.getKeyText(i), i);
+            if (KeyEvent.getKeyText(i).indexOf("Unknown keyCode") == -1) {
+                hasKey.put(KeyEvent.getKeyText(i), i);
+            }
         }
     }
 

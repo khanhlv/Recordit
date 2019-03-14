@@ -26,12 +26,8 @@
         </encoder>
     </appender>
     
-    <logger name="com.report.ytb" level="INFO">
+    <logger name="com.recordit" level="INFO">
         <appender-ref ref="CONSOLE" />
-    </logger>
-
-    <logger name="org.openqa.selenium" level="DEBUG" >
-        <appender-ref ref="ERROR_LOG" />
     </logger>
 
     <root level="ERROR">
