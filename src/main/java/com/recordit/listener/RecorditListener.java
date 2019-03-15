@@ -20,6 +20,8 @@ import com.recordit.enums.RecorditEnum;
 
 public class RecorditListener implements NativeKeyListener, NativeMouseInputListener, NativeMouseWheelListener {
     private static final File file = new File("data/recordit.txt");
+    private static boolean WAITING = true;
+    private static int timeWaiting = 50;
 
     /** Logging */
     private static final Logger loggerGlobal = Logger.getLogger(GlobalScreen.class.getPackage().getName());
@@ -72,14 +74,20 @@ public class RecorditListener implements NativeKeyListener, NativeMouseInputList
         writeStringToFile(RecorditEnum.KEY_TYPED.toString() + "=" + NativeKeyEvent.getKeyText(e.getKeyCode()));
     }
 
-    private void writeStringToFile(String data) {
+    private static void writeStringToFile(String data) {
         try {
             FileUtils.writeStringToFile(file, data + "\n", "UTF-8", true);
             logger.info(data);
+            WAITING = false;
         } catch (IOException ex) {
             logger.error("Write string to file ", ex);
             System.exit(-1);
         }
+    }
+
+    public RecorditListener withWaiting(int timeWaiting) {
+        this.timeWaiting = timeWaiting;
+        return this;
     }
 
     public static void  execute() {
@@ -96,6 +104,24 @@ public class RecorditListener implements NativeKeyListener, NativeMouseInputList
             GlobalScreen.addNativeMouseMotionListener(recorditListener);
             GlobalScreen.addNativeMouseWheelListener(recorditListener);
             GlobalScreen.addNativeKeyListener(recorditListener);
+
+            new Thread(() -> {
+                while(true) {
+                    if (WAITING) {
+                        writeStringToFile(RecorditEnum.WAITING.toString()+ "=" + timeWaiting);
+                    }
+
+                    try {
+                        Thread.sleep(timeWaiting);
+                    } catch (InterruptedException e) {
+
+                    }
+
+                    if (!WAITING) {
+                        WAITING = true;
+                    }
+                }
+            }).start();
         }
         catch (NativeHookException ex) {
             logger.error("There was a problem registering the native hook. ", ex);

@@ -14,19 +14,13 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.LoggerFactory;
 
 import com.recordit.enums.RecorditEnum;
+import com.recordit.utils.KeyUtils;
 
 public class RecorditPlay {
 
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(RecorditPlay.class);
     private static final File file = new File("data/recordit.txt");
-    private static final HashMap<String, Integer> hasKey = new HashMap<>();
-    static {
-        for (int i = 0 ; i < 16*16*16*16; i++) {
-            if (KeyEvent.getKeyText(i).indexOf("Unknown keyCode") == -1) {
-                hasKey.put(KeyEvent.getKeyText(i), i);
-            }
-        }
-    }
+    private static final HashMap<String, Integer> hasKey = KeyUtils.compareKey();
 
     public static void execute() {
         BufferedReader in = null;
@@ -84,7 +78,10 @@ public class RecorditPlay {
                     robot.keyRelease(hasKey.get(splitKey[1]));
                 }
 
-                Thread.sleep(20);
+                // WAITING
+                if (StringUtils.equals(RecorditEnum.WAITING.toString(), splitKey[0])) {
+                    robot.delay(NumberUtils.toInt(splitKey[1]));
+                }
 
                 logger.info(input);
             }

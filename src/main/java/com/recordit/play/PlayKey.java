@@ -12,6 +12,7 @@ import org.jnativehook.keyboard.NativeKeyEvent;
 import org.slf4j.LoggerFactory;
 
 import com.recordit.enums.RecorditEnum;
+import com.recordit.utils.KeyUtils;
 
 /**
  * http://omtlab.com/java-control-the-mouse-pointer-and-click/
@@ -22,14 +23,7 @@ public class PlayKey {
 
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(PlayKey.class);
     private static final File file = new File("data/key.txt");
-    private static final HashMap<String, Integer> hasKey = new HashMap<>();
-    static {
-        for (int i = 0 ; i < 16*16*16*16; i++) {
-            if (KeyEvent.getKeyText(i).indexOf("Unknown keyCode") == -1) {
-                hasKey.put(KeyEvent.getKeyText(i), i);
-            }
-        }
-    }
+    private static final HashMap<String, Integer> hasKey = KeyUtils.compareKey();
 
     public static void execute() throws Exception {
         BufferedReader in = new BufferedReader(new FileReader(file));
@@ -47,7 +41,7 @@ public class PlayKey {
                 robot.keyRelease(hasKey.get(splitKey[1]));
             }
 
-            Thread.sleep(20);
+            Thread.sleep(50);
             logger.info(input);
         }
 

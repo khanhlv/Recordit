@@ -9,5 +9,6 @@ public enum RecorditEnum {
     MOUSE_WHEEL,
     KEY_PRESSED,
     KEY_RELEASED,
-    KEY_TYPED
+    KEY_TYPED,
+    WAITING,
 }

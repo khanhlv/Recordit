@@ -67,7 +67,7 @@ public class PlayMouse {
                 robot.mouseWheel(NumberUtils.toInt(splitKey[1]));
             }
 
-            Thread.sleep(20);
+            Thread.sleep(50);
             logger.info(input);
         }
 
