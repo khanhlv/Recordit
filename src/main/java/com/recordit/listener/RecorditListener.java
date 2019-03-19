@@ -29,7 +29,7 @@ public class RecorditListener implements NativeKeyListener, NativeMouseInputList
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(RecorditListener.class);
 
     public void nativeMouseClicked(NativeMouseEvent e) {
-        System.out.println(RecorditEnum.MOUSE_CLICKED.toString() + "=" + e.getClickCount());
+        logger.info(RecorditEnum.MOUSE_CLICKED.toString() + "=" + e.getClickCount());
     }
 
     public void nativeMousePressed(NativeMouseEvent e) {
