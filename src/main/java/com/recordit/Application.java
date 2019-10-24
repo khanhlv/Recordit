@@ -10,8 +10,8 @@ public class Application {
     public static void main(String[] args) {
         System.out.println("Thong tin tham so");
         System.out.println("1 - Ghi lai thao tac chuot va ban phim");
-        System.out.println("2 - Phat lai thao tac chuot va ban phim");
-        System.out.println("2 2 - Phat lai thao tac chuot va ban phim voi so lan");
+        System.out.println("2 1 - Phat lai thao tac chuot va ban phim voi 1 lan");
+        System.out.println("2 n - Phat lai thao tac chuot va ban phim voi n lan");
         if (args != null && args.length > 0) {
             if (StringUtils.equals("1", args[0])) {
                 RecorditListener.execute();
