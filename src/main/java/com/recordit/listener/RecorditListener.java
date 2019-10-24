@@ -21,7 +21,7 @@ import com.recordit.enums.RecorditEnum;
 public class RecorditListener implements NativeKeyListener, NativeMouseInputListener, NativeMouseWheelListener {
     private static final File file = new File("data/recordit.txt");
     private static boolean WAITING = true;
-    private static int timeWaiting = 50;
+    private int timeWaiting = 50;
 
     /** Logging */
     private static final Logger loggerGlobal = Logger.getLogger(GlobalScreen.class.getPackage().getName());
@@ -74,7 +74,7 @@ public class RecorditListener implements NativeKeyListener, NativeMouseInputList
         writeStringToFile(RecorditEnum.KEY_TYPED.toString() + "=" + NativeKeyEvent.getKeyText(e.getKeyCode()));
     }
 
-    private static void writeStringToFile(String data) {
+    private void writeStringToFile(String data) {
         try {
             FileUtils.writeStringToFile(file, data + "\n", "UTF-8", true);
             logger.info(data);
@@ -90,7 +90,7 @@ public class RecorditListener implements NativeKeyListener, NativeMouseInputList
         return this;
     }
 
-    public static void  execute() {
+    public void  execute() {
         try {
             FileUtils.deleteQuietly(file);
             loggerGlobal.setLevel(Level.OFF);
@@ -129,7 +129,7 @@ public class RecorditListener implements NativeKeyListener, NativeMouseInputList
         }
     }
     public static void main(String[] args) {
-        RecorditListener.execute();
+        new RecorditListener().execute();
     }
 
 }

@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
+import com.recordit.capture.ScreenCapture;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,14 @@ public class RecorditPlay {
     private static final File file = new File("data/recordit.txt");
     private static final HashMap<String, Integer> hasKey = KeyUtils.compareKey();
 
-    public static void execute() {
+    private String fileName = String.valueOf(System.currentTimeMillis());
+
+    public RecorditPlay withFileName(String fileName) {
+        this.fileName = fileName;
+        return this;
+    }
+
+    public void execute() {
         BufferedReader in = null;
         try {
             in = new BufferedReader(new FileReader(file));
@@ -76,6 +84,11 @@ public class RecorditPlay {
 
                 if (StringUtils.equals(RecorditEnum.KEY_RELEASED.toString(), splitKey[0])) {
                     robot.keyRelease(hasKey.get(splitKey[1]));
+
+                    // CAPTURE SCREEN
+                    if (StringUtils.equals("Print Screen", splitKey[1])) {
+                        ScreenCapture.execute(fileName);
+                    }
                 }
 
                 // WAITING
@@ -99,7 +112,7 @@ public class RecorditPlay {
         System.exit(-1);
     }
 
-    private static void mouseMove(Robot robot, String[] splitKey) {
+    private void mouseMove(Robot robot, String[] splitKey) {
         String[] split = StringUtils.split(splitKey[1], ",");
 
         int x = Integer.parseInt(split[0]);
@@ -108,6 +121,6 @@ public class RecorditPlay {
     }
 
     public static void main(String[] args) throws Exception {
-        RecorditPlay.execute();
+        new RecorditPlay().execute();
     }
 }

@@ -14,15 +14,15 @@ public class Application {
         System.out.println("2 n - Phat lai thao tac chuot va ban phim voi n lan");
         if (args != null && args.length > 0) {
             if (StringUtils.equals("1", args[0])) {
-                RecorditListener.execute();
+                new RecorditListener().execute();
             }
             if (StringUtils.equals("2", args[0])) {
                 if (StringUtils.isNotBlank(args[1])) {
                     for (int i = 0; i <= NumberUtils.toInt(args[1]); i++) {
-                        RecorditPlay.execute();
+                        new RecorditPlay().execute();
                     }
                 } else {
-                    RecorditPlay.execute();
+                    new RecorditPlay().execute();
                 }
             }
         } else {
