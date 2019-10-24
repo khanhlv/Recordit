@@ -1,5 +1,8 @@
 package com.recordit.utils;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
@@ -16,5 +19,11 @@ public final class KeyUtils {
             }
         }
         return hasKey;
+    }
+
+    public static void keyCopyValue(String data) {
+        StringSelection stringSelection = new StringSelection(data);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(stringSelection, null);
     }
 }
