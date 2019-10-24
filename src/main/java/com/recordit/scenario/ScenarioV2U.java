@@ -42,14 +42,16 @@ public class ScenarioV2U {
     public void execute() {
         ScenarioV2U scenarioV2U = new ScenarioV2U();
 
-        logger.info("Scenario V2U Starting .......");
+        logger.info("#V2U_STARTING .......");
 
         // 1. Read Phone
         scenarioV2U.readPhone();
 
+        logger.info("#V2U_QUEUE[" + linkedQueue.size() + "]");
+
         while(true) {
             String phone = linkedQueue.poll();
-
+            logger.info("#V2U_PHONE[" + phone + "]");
             // 2. Copy phone
             KeyUtils.keyCopyValue(phone);
 
@@ -58,12 +60,12 @@ public class ScenarioV2U {
 
             try {
                 Thread.sleep(2000);
-                logger.info("Waiting ......");
+                logger.info("#V2U_WAITING ......");
             } catch (InterruptedException e) {
             }
 
             if (linkedQueue.size() == 0) {
-                logger.info("Scenario V2U Exiting .....!");
+                logger.info("#V2U_EXITING .....!");
                 break;
             }
         }
