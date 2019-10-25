@@ -81,7 +81,6 @@ public class RecorditListener implements NativeKeyListener, NativeMouseInputList
             WAITING = false;
         } catch (IOException ex) {
             logger.error("Write string to file ", ex);
-            System.exit(-1);
         }
     }
 
@@ -125,7 +124,6 @@ public class RecorditListener implements NativeKeyListener, NativeMouseInputList
         }
         catch (NativeHookException ex) {
             logger.error("There was a problem registering the native hook. ", ex);
-            System.exit(-1);
         }
     }
     public static void main(String[] args) {
