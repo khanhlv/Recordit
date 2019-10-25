@@ -2,6 +2,8 @@ package com.recordit.scenario;
 
 import com.recordit.play.RecorditPlay;
 import com.recordit.utils.KeyUtils;
+
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,8 +26,11 @@ public class ScenarioV2U {
 
             String input = null;
             while ((input = in.readLine()) != null) {
-                System.out.println(input);
-                linkedQueue.add(input);
+                File isFile = new File("data/" + input + ".png");
+                if (!isFile.exists()) {
+                    System.out.println(input);
+                    linkedQueue.add(input);
+                }
             }
         } catch (Exception ex) {
             logger.error("ScenarioV2U", ex);
