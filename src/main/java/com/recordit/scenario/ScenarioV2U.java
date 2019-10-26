@@ -3,15 +3,14 @@ package com.recordit.scenario;
 import com.recordit.play.RecorditPlay;
 import com.recordit.utils.KeyUtils;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ScenarioV2U {
@@ -63,11 +62,17 @@ public class ScenarioV2U {
             // 3. Run play listener
             new RecorditPlay().withFileName(phone).execute();
 
-            try {
-                Thread.sleep(2000);
-                logger.info("#V2U_WAITING ......");
-            } catch (InterruptedException e) {
-            }
+            Scanner in = new Scanner(System.in);
+
+            System.out.print("Enter continue PHONE_SIZE["+linkedQueue.size()+"]");
+            String line = in.nextLine();
+            logger.info("Waiting ......" + line);
+
+//            try {
+//                Thread.sleep(2000);
+//                logger.info("Waiting ......");
+//            } catch (InterruptedException e) {
+//            }
 
             if (linkedQueue.size() == 0) {
                 logger.info("#V2U_EXITING .....!");
