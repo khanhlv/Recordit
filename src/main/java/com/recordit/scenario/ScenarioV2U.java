@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class ScenarioV2U {
@@ -61,11 +62,17 @@ public class ScenarioV2U {
             // 3. Run play listener
             new RecorditPlay().withFileName(phone).execute();
 
-            try {
-                Thread.sleep(2000);
-                logger.info("Waiting ......");
-            } catch (InterruptedException e) {
-            }
+            Scanner in = new Scanner(System.in);
+
+            System.out.print("Enter continue");
+            String line = in.nextLine();
+            logger.info("Waiting ......" + line);
+
+//            try {
+//                Thread.sleep(2000);
+//                logger.info("Waiting ......");
+//            } catch (InterruptedException e) {
+//            }
 
             if (linkedQueue.size() == 0) {
                 logger.info("Scenario V2U Exiting .....!");
