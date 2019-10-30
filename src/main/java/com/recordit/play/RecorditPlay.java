@@ -19,13 +19,18 @@ import com.recordit.utils.KeyUtils;
 public class RecorditPlay {
 
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(RecorditPlay.class);
-    private static final File file = new File("data/recordit.txt");
     private static final HashMap<String, Integer> hasKey = KeyUtils.compareKey();
 
-    private String fileName = String.valueOf(System.currentTimeMillis());
+    private  File file = new File("data/recordit.txt");
+    private String fileImage = String.valueOf(System.currentTimeMillis());
 
-    public RecorditPlay withFileName(String fileName) {
-        this.fileName = fileName;
+    public RecorditPlay withFileImage(String fileImage) {
+        this.fileImage = fileImage;
+        return this;
+    }
+
+    public RecorditPlay withFileRecodit(String fileRecodit) {
+        this.file = new File(fileRecodit);
         return this;
     }
 
@@ -86,7 +91,7 @@ public class RecorditPlay {
 
                     // CAPTURE SCREEN
                     if (StringUtils.equals("Print Screen", splitKey[1])) {
-                        ScreenCapture.execute(fileName);
+                        ScreenCapture.execute(fileImage);
                     }
                 }
 

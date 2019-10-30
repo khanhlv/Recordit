@@ -1,5 +1,6 @@
 package com.recordit.scenario;
 
+import com.recordit.compare.ImageComparison;
 import com.recordit.play.RecorditPlay;
 import com.recordit.utils.KeyUtils;
 
@@ -60,23 +61,51 @@ public class ScenarioV2U {
             KeyUtils.keyCopyValue(phone);
 
             // 3. Run play listener
-            new RecorditPlay().withFileName(phone).execute();
+            new RecorditPlay().withFileImage(phone).execute();
 
-            Scanner in = new Scanner(System.in);
+//            Scanner in = new Scanner(System.in);
+//            System.out.print("Enter continue PHONE_SIZE["+linkedQueue.size()+"]");
+//            String line = in.nextLine();
+//            logger.info("Waiting ......" + line);
 
-            System.out.print("Enter continue PHONE_SIZE["+linkedQueue.size()+"]");
-            String line = in.nextLine();
-            logger.info("Waiting ......" + line);
-
-//            try {
-//                Thread.sleep(2000);
-//                logger.info("Waiting ......");
-//            } catch (InterruptedException e) {
-//            }
+            // 4. Check screen complete
+            checkScreenCompleted();
 
             if (linkedQueue.size() == 0) {
                 logger.info("#V2U_EXITING .....!");
                 break;
+            }
+        }
+    }
+
+    private void checkScreenCompleted() {
+        int count = 0;
+        while (true) {
+            logger.info("#V2U_CHECK_IMAGE_COUNT[" + count + "]......");
+
+            boolean result = ImageComparison.findImage("data/check.png");
+
+            try {
+                Thread.sleep(2000);
+                count++;
+                logger.info("#V2U_CHECK_IMAGE_WAITING[2s]......");
+            } catch (InterruptedException e) {
+            }
+
+            if (result) {
+                break;
+            }
+
+            if (count >= 20) {
+                boolean resultCheck2 = ImageComparison.findImage("data/check2.png");
+
+                if (resultCheck2) {
+                    new RecorditPlay().withFileRecodit("data/recordit2.txt").execute();
+                }
+            }
+
+            if (count == 30) {
+                System.exit(-1);
             }
         }
     }
