@@ -69,6 +69,8 @@ public class ScenarioV2U {
 //            logger.info("Waiting ......" + line);
 
             // 4. Check screen complete
+            logger.info("#V2U_PHONE_SIZE["+linkedQueue.size()+"]");
+
             checkScreenCompleted();
 
             if (linkedQueue.size() == 0) {
@@ -81,32 +83,34 @@ public class ScenarioV2U {
     private void checkScreenCompleted() {
         int count = 0;
         while (true) {
-            logger.info("#V2U_CHECK_IMAGE_COUNT[" + count + "]......");
+            logger.info("#V2U_CHECK_IMAGE_COUNT[" + count + "]");
 
             boolean result = ImageComparison.findImage("data/check.png");
 
             try {
                 Thread.sleep(2000);
                 count++;
-                logger.info("#V2U_CHECK_IMAGE_WAITING[2s]......");
+                logger.info("#V2U_CHECK_IMAGE_WAITING[2s]");
             } catch (InterruptedException e) {
             }
 
-            if (result) {
+            if (result || count >= 60) {
                 break;
             }
 
-            if (count >= 20) {
+            if (count >= 30) {
                 boolean resultCheck2 = ImageComparison.findImage("data/check2.png");
 
                 if (resultCheck2) {
                     new RecorditPlay().withFileRecodit("data/recordit2.txt").execute();
                 }
             }
+        }
 
-            if (count == 30) {
-                System.exit(-1);
-            }
+        if (count >= 60) {
+            Scanner in = new Scanner(System.in);
+            logger.info("#V2U_ENTER_CONTINUE_PHONE_SIZE["+linkedQueue.size()+"]");
+            in.nextLine();
         }
     }
 
